@@ -42,6 +42,7 @@ class MovieController extends Controller
         $movie->actors = $request['actors'];
         $movie->plot = $request['plot'];;
         $movie->save();
+        return back();
     }
 
     /**
