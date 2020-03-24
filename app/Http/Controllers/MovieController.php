@@ -40,7 +40,7 @@ class MovieController extends Controller
         $movie= new Movie();
         $movie->title = $request['title'];
         $movie->actors = $request['actors'];
-        $movie->plot = $request['plot'];;
+        $movie->plot = $request['plot'];
         $movie->save();
         return back();
     }
@@ -51,9 +51,9 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Movie $movie)
     {
-        //
+        return view('show', compact('movie'));
     }
 
     /**
