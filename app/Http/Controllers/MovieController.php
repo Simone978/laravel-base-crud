@@ -12,6 +12,13 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    private $validateStrings = [
+    'title' => 'required|string|max:255',
+    'actors' => 'required|string|max:255',
+    'plot' => 'required|string|max:255',
+    ];
     public function index()
     {
         $movies = Movie::all();
@@ -37,12 +44,15 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         $movie= new Movie();
-        $movie->title = $request['title'];
-        $movie->actors = $request['actors'];
-        $movie->plot = $request['plot'];
+        $request->validate(
+            $this->validateStrings
+            );
+        $movie->fill($data);
         $movie->save();
-        return back();
+        $newMovie = Movie::all()->last();
+        return redirect()->route('movies.index', compact('newMovie'));
     }
 
     /**
@@ -92,12 +102,12 @@ class MovieController extends Controller
     {
 
         $id = $movie->id;
-        $deleted = $movie->delete();
+        $delete = $movie->delete();
         $data = [
-                'id' => $id,
+            'id' => $id,
             'movies' => movie::all()
         ];
-        
         return view('index', $data);
+
     }
 }
