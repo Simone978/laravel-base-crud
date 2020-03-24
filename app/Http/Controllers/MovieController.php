@@ -62,9 +62,9 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movie $movie)
     {
-        //
+        return view('edit', compact('movie'));
     }
 
     /**
@@ -76,7 +76,10 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $movie = Movie::find($id);
+        $data = $request->all();
+        $update = $movie->update($data);
+        return view('show', compact('movie'));
     }
 
     /**
