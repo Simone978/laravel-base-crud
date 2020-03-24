@@ -88,8 +88,16 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
-        //
+
+        $id = $movie->id;
+        $deleted = $movie->delete();
+        $data = [
+                'id' => $id,
+            'movies' => movie::all()
+        ];
+        
+        return view('index', $data);
     }
 }

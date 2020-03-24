@@ -1,4 +1,4 @@
-@extends('template.show')
+@extends('template.layout')
 @section('main')
 <form action="{{route('movies.store')}}" method="post">
     @csrf
